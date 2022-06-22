@@ -22,6 +22,7 @@ public interface IStudentService {
     boolean existsClass(String classes);
     void add(Student newStudent);
     void edit(Student beforeStudent);
-    void sortFullName(List<Student> studentList);
+    List<Student> sortFullNameADC(List<Student> studentList);
+    List<Student> sortFullNameDEC(List<Student> studentList);
     boolean checkNameStudent(String name);
 }

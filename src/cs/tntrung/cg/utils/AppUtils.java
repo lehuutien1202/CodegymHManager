@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class AppUtils {
     static Scanner sc = new Scanner ( System.in );
+    private static final Scanner scanner = new Scanner ( System.in );
 
     public static String retryString(String field) {
         String result;
@@ -38,6 +39,12 @@ public class AppUtils {
                 case INFO:
                     System.out.println ( "Nhấn 'b' để về giao diện chính \t|\t 'y' để quay lại \t|\t 'e' để thoát chương trình \t|\t 's' để đăng xuất" );
                     break;
+                case ADD_INFO:
+                    System.out.println ( "Nhấn 'n' để thêm tiếp \t|\t 'b' để về giao diện chính \t|\t 'z' để quay lại \t|\t 'e' để thoát chương trình \t|\t 's' để đăng xuất" );
+                    break;
+                case SIGNIN:
+                    System.out.println ( "Nhấn 'n' để nhập lại \t|\t 's' để thoát chương trình" );
+                    break;
                 default:
                     throw new IllegalStateException ( "Unexpected value: " + inputOption );
             }
@@ -62,6 +69,10 @@ public class AppUtils {
                     LaunchAdminView infoView = new LaunchAdminView ();
                     infoView.infoStudentView ();
                     break;
+                case "z":
+                    ShowStudent student = new ShowStudent ();
+                    student.showAddInfoStudent ();
+                    break;
                 case "e":
                     exit ();
                     break;
@@ -78,7 +89,7 @@ public class AppUtils {
     public static int retryChoose(int min, int max) {
         int option;
         do {
-            System.out.print ( "Lựa chọn ➣ " );
+            System.out.print ( "➯➯ Chọn: " );
             try {
                 option = Integer.parseInt ( sc.nextLine () );
                 if ( option > max || option < min ) {
@@ -111,7 +122,8 @@ public class AppUtils {
         }
         return false;
     }
-    public static boolean login(){
+
+    public static boolean login() {
         System.out.println ( "╒════BẠN MUỐN XÓA ĐĂNG XUẤT════╕" );
         System.out.println ( "│                              │" );
         System.out.println ( "│        ▫ 1. Xác nhận         │" );
@@ -128,17 +140,21 @@ public class AppUtils {
         }
         return false;
     }
+
     public static int retryParseInt() {
         int result;
         do {
             try {
-                result = Integer.parseInt (sc.nextLine());
+                result = Integer.parseInt ( sc.nextLine () );
                 return result;
-            } catch (Exception ex) {
-                System.out.print("Nhập sai! vui lòng nhập lại: ");
+            } catch (Exception o) {
+                System.out.print ("Nhập sai hãy nhập lại: ");
             }
         } while (true);
     }
+//catch (Exception ex) {
+//        result = 0;
+//    }
     public static boolean isRetryReceipt(InputOption inputOption) {
         do {
             switch (inputOption) {
@@ -158,7 +174,7 @@ public class AppUtils {
                     System.out.println ( "Nhấn 'n' để sữa tiếp \t|\t 'b' để về BIÊN LAI \t|\t 't' để quay lại \t|\t 'a' để về trang chính \t|\t 's' để đăng xuất \t|\t 'e' để thoát chương trình" );
                     break;
                 case PRINT:
-                    System.out.println ( "Nhấn 'n' để IN tiếp \t|\t 'b' để về BIÊN LAI \t|\t 't' để quay lại \t|\t 'a' để về trang chính \t|\t 's' để đăng xuất \t|\t 'e' để thoát chương trình" );
+                    System.out.println ( "Nhấn 'n' để IN tiếp \t|\t 'b' để về BIÊN LAI \t|\t 'a' để về trang chính \t|\t 's' để đăng xuất \t|\t 'e' để thoát chương trình" );
                     break;
                 default:
                     throw new IllegalStateException ( "Unexpected value: " + inputOption );
@@ -199,21 +215,30 @@ public class AppUtils {
             }
         } while (true);
     }
+
     public static Long retryParseLong() {
         long result;
         do {
-            System.out.print("➱➱ ");
+            System.out.print ( "➱➱ " );
             try {
-                result = Long.parseLong (sc.nextLine());
+                result = Long.parseLong ( sc.nextLine () );
                 return result;
             } catch (Exception ex) {
-                System.out.print("Nhập sai! vui lòng nhập lại ");
+                System.out.print ( "Nhập sai! vui lòng nhập lại " );
             }
         } while (true);
     }
+
     public static String doubleToVND(double value) {
         String patternVND = ",###₫";
-        DecimalFormat decimalFormat = new DecimalFormat(patternVND);
-        return decimalFormat.format(value);
+        DecimalFormat decimalFormat = new DecimalFormat ( patternVND );
+        return decimalFormat.format ( value );
+    }
+
+    public static void toNextInt(int result) {
+        if ( result == 0 ) {
+            System.out.println ("Nhấn 'Enter' lần nữa để bỏ qua!");
+            sc.nextLine ();
+        }
     }
 }

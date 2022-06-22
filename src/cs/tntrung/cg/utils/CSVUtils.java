@@ -9,17 +9,6 @@ import java.util.List;
 
 public class CSVUtils {
     public static <T> void write(String path, List<T> items) {
-//        Path data = Paths.get ( "data" );
-//        if (!Files.exists(data)) {
-//            try {
-//                Files.createDirectory(data);
-////                System.out.print("Create path = " + file + " successfully!");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            System.out.print("");
-//        }
 
         try (PrintWriter printWriter = new PrintWriter(path)) {
             for (T item : items) {

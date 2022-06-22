@@ -13,7 +13,7 @@ public class LaunchAdminView {
             System.out.println ( "                     CODEGYM HUẾ                   " );
             System.out.println ( "∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙" );
             System.out.println ( "         ➤  KỶ LUẬT - NĂNG ĐỘNG - CẦU TIẾN  ➤      " );
-            System.out.println ( "❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤" );
+            System.out.println ( "❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤" );
             System.out.println ( "╒═════════════════ QUẢN TRỊ VIÊN ═════════════════╕" );
             System.out.println ( "│                                                 │" );
             System.out.println ( "│         ● 1. Danh sách học viên                 │" );
@@ -34,7 +34,7 @@ public class LaunchAdminView {
                     adminView.singup ();
                     break;
                 case 3:
-                    adminView.infoStudent ();
+                    infoStudentView ();
                     break;
                 case 4:
                     adminView.editStudent ();
@@ -56,18 +56,18 @@ public class LaunchAdminView {
         }while (true);
     }
 
-    public void editLaunch() {
-        System.out.println ( "╒════════════════ ✎ CHỈNH SỬA ✎ ════════════════╕" );
-        System.out.println ( "│            ✍ 1. Lớp học                        │" );
-        System.out.println ( "│            ✍ 2. Tên                            │" );
-        System.out.println ( "│            ✍ 3. Giới tính                      │" );
-        System.out.println ( "│            ✍ 4. Ngày sinh                      │" );
-        System.out.println ( "│            ✍ 5. Số điện thoại                  │" );
-        System.out.println ( "│            ✍ 6. Email                          │" );
-        System.out.println ( "│            ✍ 7. Chỉnh sửa toàn bộ              │" );
-        System.out.println ( "│            ✍ 8. Tùy chọn                       │" );
-        System.out.println ( "╘════════════════════════════════════════════════╛" );
-    }
+//    public void editLaunch() {
+//        System.out.println ( "╒════════════════ ✎ CHỈNH SỬA ✎ ════════════════╕" );
+//        System.out.println ( "│            ✍ 1. Lớp học                        │" );
+//        System.out.println ( "│            ✍ 2. Tên                            │" );
+//        System.out.println ( "│            ✍ 3. Giới tính                      │" );
+//        System.out.println ( "│            ✍ 4. Ngày sinh                      │" );
+//        System.out.println ( "│            ✍ 5. Số điện thoại                  │" );
+//        System.out.println ( "│            ✍ 6. Email                          │" );
+//        System.out.println ( "│            ✍ 7. Chỉnh sửa toàn bộ              │" );
+//        System.out.println ( "│            ✍ 8. Tùy chọn                       │" );
+//        System.out.println ( "╘════════════════════════════════════════════════╛" );
+//    }
 
     public void infoStudentView() {
         System.out.println ( "╒═══════════════ THÔNG TIN HỌC VIÊN ═══════════════╕" );
@@ -77,6 +77,32 @@ public class LaunchAdminView {
         System.out.println ( "│                                                  │" );
         System.out.println ( "│ ◌ 3. Đăng xuất |  ◌ 4. Quay lại    | ◌ 5. Thoát  │" );
         System.out.println ( "╘══════════════════════════════════════════════════╛" );
+        ShowStudent student = new ShowStudent ();
+        do {
+            try {
+                int option = AppUtils.retryChoose ( 1, 5 );
+                switch (option) {
+                    case 1:
+                        student.showAddInfoStudent ();
+                        break;
+                    case 2:
+                        student.showInfoStudent ();
+                        break;
+                    case 3:
+                        Login.login ();
+                        break;
+                    case 4:
+                        LaunchAdminView launchAdminView = new LaunchAdminView ();
+                        launchAdminView.launch ();
+                        break;
+                    case 5:
+                        AppUtils.exit ();
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.print ( "Nhập sai, hãy nhập lại: " );
+            }
+        } while (true);
     }
 
 }

@@ -14,12 +14,13 @@ public class ShowStudent {
 
     public void showStudentList() {
         System.out.println ( "╒═══════════════ DANH SÁCH HỌC VIÊN ═══════════════╕" );
+        System.out.println ( "│                                                  │" );
         System.out.println ( "│       ▸ 1. Danh sách toàn bộ học viên            │" );
         System.out.println ( "│       ▹ 2. Danh sách theo lớp                    │" );
-        System.out.println ( "│       ▹ 3. Tìm kiếm                              │" );
+        System.out.println ( "│       ▸ 3. Tìm kiếm                              │" );
+        System.out.println ( "│                                                  │" );
         System.out.println ( "│ ◌ 4: Đăng xuất |   ◌ 5: Quay lại   |  ◌ 6: Thoát │" );
         System.out.println ( "╘══════════════════════════════════════════════════╛" );
-
     }
 
     public void showAllStudent() {
@@ -51,13 +52,12 @@ public class ShowStudent {
                 i++;
             }
             System.out.println ( "╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝" );
-            System.out.println ( "Nhấn (1) để xem danh sách sắp xếp theo tên  ||  (2) để mở tùy chọn" );
-            System.out.print ( "☞☞☞ " );
+            System.out.println ( "Nhấn (1) để sắp xếp theo tên (A -> Z) ||  (2) để mở tùy chọn" );
             int choises_11 = AppUtils.retryChoose ( 1, 2 );
             switch (choises_11) {
                 case 1:
-                    StudentServices services = new StudentServices ();
-                    services.sortFullName ( students );
+                    AdminView adminView = new AdminView ();
+                    adminView.sorfStudentByNameADC (students);
                     break;
                 case 2:
                     AppUtils.isRetryAdmin ( InputOption.SHOW );
@@ -108,7 +108,8 @@ public class ShowStudent {
                 continue;
             }
             Student student = services.getByCode ( code );
-            System.out.println ( "➧➧➧➧➧➧➧ Thông tin học viên cần chỉnh sửa: " );
+            System.out.println ( "➧➧➧➧➧➧➧ Thông tin học viên cần xem thông tin chi tiết: " );
+            System.out.println ();
             System.out.printf ( "Mã học viên: %s\nLớp học: %s\nHọ tên: %s\nGiới tính: %s\nNgày sinh: %s\nSố điện thoại: %s\nEmail: %s\nTrạng thái: %s\nCCCD | CMND: %s\nNgày cấp: %s\nNơi cấp: %s\nNgười thân: %s\nSĐT người thân: %s\nNgày nhập học: %s\nNgày dự kiến kết thúc: %s\n",
                     student.getCode (), student.getClasses (), student.getName (),
                     student.getGender (), student.getDateOfBirth (), student.getPhoneNumber (),
@@ -130,5 +131,37 @@ public class ShowStudent {
             }
         }
         while (!services.existsCode ( code ));
+    }
+
+    public void showAddInfoStudent() {
+        do {
+            System.out.println ( "╒══════ THÊM THÔNG TIN CHI TIẾT CHO HỌC VIÊN ══════╕" );
+            System.out.println ( "│                                                  │" );
+            System.out.println ( "│       ▸ 1. Thêm toàn bộ thông tin                │" );
+            System.out.println ( "│       ▹ 2. Thêm từng trường thông tin            │" );
+            System.out.println ( "│                                                  │" );
+            System.out.println ( "│ ◌ 3: Đăng xuất |   ◌ 4: Quay lại   |  ◌ 5: Thoát │" );
+            System.out.println ( "╘══════════════════════════════════════════════════╛" );
+            AdminView adminView = new AdminView ();
+            int choose = AppUtils.retryChoose ( 1,5 );
+            switch (choose) {
+                case 1:
+                    adminView.addAll ();
+                    break;
+                case 2:
+                    adminView.addOne ();
+                    break;
+                case 3:
+                    AppUtils.login ();
+                    break;
+                case 4:
+                    LaunchAdminView launchAdminView = new LaunchAdminView ();
+                    launchAdminView.infoStudentView ();
+                    break;
+                case 5:
+                    AppUtils.exit ();
+                    break;
+            }
+        }while (true);
     }
 }

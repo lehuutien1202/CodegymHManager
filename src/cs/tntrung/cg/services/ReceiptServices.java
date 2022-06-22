@@ -6,6 +6,7 @@ import cs.tntrung.cg.utils.CSVUtils;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -129,5 +130,27 @@ public class ReceiptServices implements IReceiptServices {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<Receipt> sortMoneyADC(List<Receipt> receiptList) {
+        receiptList.sort ( new Comparator<Receipt> () {
+            @Override
+            public int compare(Receipt o1, Receipt o2) {
+                return o1.getMoney ()-  o2.getMoney () ;
+            }
+        } );
+        return receiptList;
+    }
+
+    @Override
+    public List<Receipt> sortMoneyDEC(List<Receipt> receiptList) {
+        receiptList.sort ( new Comparator<Receipt> () {
+            @Override
+            public int compare(Receipt o1, Receipt o2) {
+                return o2.getMoney ()-  o1.getMoney () ;
+            }
+        } );
+        return receiptList;
     }
 }

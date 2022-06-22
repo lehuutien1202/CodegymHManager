@@ -47,6 +47,15 @@ public class AdminServices implements IAdminService {
     }
 
     @Override
+    public Admin getByEmail(String email) {
+        for (Admin admin : findAll ()) {
+            if ( admin.getEmail ().equals ( email ) )
+                return admin;
+        }
+        return null;
+    }
+
+    @Override
     public boolean existsEmail(String email) {
         List<Admin> admins = findAll ();
         for (Admin admin : admins) {

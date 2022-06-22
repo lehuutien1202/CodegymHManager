@@ -17,4 +17,6 @@ public interface IReceiptServices {
     Receipt getByReceiptCode(Long receiptCode);
     boolean existsCode(String code);
     List<Receipt> receiptByCode(String code);
+    List<Receipt> sortMoneyADC(List<Receipt> studentList);
+    List<Receipt> sortMoneyDEC(List<Receipt> studentList);
 }

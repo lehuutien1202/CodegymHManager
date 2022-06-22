@@ -53,11 +53,10 @@ public class LaunchStudentView {
                     studentView.changePassword (code);
                     break;
                 case 3:
-//                Đang tìm hiểu
                     studentView.tuition ( code );
                     break;
                 case 4:
-                    Login.login ();
+                    AppUtils.login ();
                     break;
                 case 5:
                     AppUtils.exit ();

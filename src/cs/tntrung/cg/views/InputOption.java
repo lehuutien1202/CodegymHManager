@@ -13,4 +13,6 @@ public enum InputOption {
     SIGNIN,
     CHANGE_PASSWORD,
     PRINT,
+    ADD_INFO,
+    ADD_INFO_ONE
 }

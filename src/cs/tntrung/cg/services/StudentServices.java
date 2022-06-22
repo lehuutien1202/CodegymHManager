@@ -1,11 +1,13 @@
 package cs.tntrung.cg.services;
 
+import cs.tntrung.cg.model.Admin;
 import cs.tntrung.cg.model.Role;
 import cs.tntrung.cg.model.Student;
 import cs.tntrung.cg.utils.AppUtils;
 import cs.tntrung.cg.utils.CSVUtils;
 import cs.tntrung.cg.utils.InstantUtils;
 import cs.tntrung.cg.utils.ValidateUtils;
+import cs.tntrung.cg.views.AdminView;
 import cs.tntrung.cg.views.InputOption;
 
 import java.time.Instant;
@@ -124,39 +126,26 @@ public class StudentServices implements IStudentService {
         }
     }
     @Override
-    public void sortFullName(List<Student> studentList) {
+    public List<Student> sortFullNameADC(List<Student> studentList) {
         studentList.sort ( new Comparator<Student> () {
             @Override
             public int compare(Student o1, Student o2) {
                 return o1.getName ().compareTo ( o2.getName () );
             }
         } );
-        System.out.println ( "╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗" );
-        System.out.println ( "║                                                                                ❣❣❣❣❣   DANH SÁCH HỌC VIÊN THEO TÊN    ❣❣❣❣❣                                                                                               ║" );
-        System.out.println ( "╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣" );
-        System.out.printf ( "║\t%-5s│%-20s│%-20s│%-30s│%-20s│%-20s│%-20s│%-30s│%-20s│%-20s║\n",
-                "STT", "Mã Học Viên", "Lớp", "Họ và tên", "Giới tính", "Ngày sinh", "Số điện thoại", "Email", "Ngày tạo", "Ngày chỉnh sửa" );
-        System.out.println ( "╟─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢" );
-        int i = 1;
-        for (Student student : studentList) {
-            System.out.printf ( "║\t%-5d│%-20s│%-20s│%-30s│%-20s│%-20s│%-20s│%-30s│%-20s│%-20s║\n",
-                    i, student.getCode (),
-                    student.getClasses (),
-                    student.getName (),
-                    student.getGender (),
-                    student.getDateOfBirth (),
-                    student.getPhoneNumber (),
-                    student.getEmail (),
-                    InstantUtils.instantToStringDayTime ( student.getAddedAt () ),
-                    student.getUpdatedAt () == null ? "" : InstantUtils.instantToStringDayTime ( student.getUpdatedAt () )
-            );
-            System.out.println ( "╟−−−−−−−−│−−−−−−−−−−−−−−−−−−−−│−−−−−−−−−−−−−−−−−−−−│−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−│−−−−−−−−−−−−−−−−−−−−│−−−−−−−−−−−−−−−−−−−−│−−−−−−−−−−−−−−−−−−−−│−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−│−−−−−−−−−−−−−−−−−−−−│−−−−−−−−−−−−−−−−−−−−╢" );
-            i++;
-        }
-        System.out.println ( "╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝" );
-        AppUtils.isRetryAdmin ( InputOption.SHOW );
+        return studentList;
     }
 
+    @Override
+    public List<Student> sortFullNameDEC(List<Student> studentList) {
+        studentList.sort ( new Comparator<Student> () {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return o2.getName ().compareTo ( o1.getName () );
+            }
+        } );
+        return studentList;
+    }
 
     @Override
     public Student getByCode(String code) {
@@ -200,11 +189,16 @@ public class StudentServices implements IStudentService {
     @Override
     public void studentByClass() {
         do {
-            System.out.print ( "Nhập lớp học: " );
-            String classes = AppUtils.retryString ( "Lớp học" );
-            if ( !existsClass ( classes ) ) {
-                System.out.println ( classes + " không tồn tại, nhập lại: " );
-            }
+            String classes;
+            do {
+                System.out.print ( "Nhập lớp học: " );
+                classes = AppUtils.retryString ( "Lớp học" );
+                if ( !existsClass ( classes ) ) {
+                    System.out.println ( classes + " không tồn tại, nhập lại: " );
+                    continue;
+                }
+                break;
+            }while (true);
             List<Student> students = findAll ();
             List<Student> studentByClass = new ArrayList<> ();
             for (Student student : students) {
@@ -213,7 +207,7 @@ public class StudentServices implements IStudentService {
                 }
             }
             System.out.println ( "╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗" );
-            System.out.println ( "║                                                                                ❣❣❣❣❣   DANH SÁCH HỌC VIÊN THEO TÊN    ❣❣❣❣❣                                                                                               ║" );
+            System.out.println ( "║                                                                                ❣❣❣❣❣   DANH SÁCH HỌC VIÊN THEO LỚP    ❣❣❣❣❣                                                                                               ║" );
             System.out.println ( "╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣" );
             System.out.printf ( "║\t%-5s│%-20s│%-20s│%-30s│%-20s│%-20s│%-20s│%-30s│%-20s│%-20s║\n",
                     "STT", "Mã Học Viên", "Lớp", "Họ và tên", "Giới tính", "Ngày sinh", "Số điện thoại", "Email", "Ngày tạo", "Ngày chỉnh sửa" );
@@ -235,12 +229,12 @@ public class StudentServices implements IStudentService {
                 i++;
             }
             System.out.println ( "╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝" );
-            System.out.println ( "Nhấn (1) để xem danh sách sắp xếp theo tên  ||  (2) để mở tùy chọn" );
+            System.out.println ( "Nhấn (1) để sắp xếp theo tên (A -> Z)  ||  (2) để mở tùy chọn" );
             int choises = AppUtils.retryChoose ( 1, 2 );
             switch (choises) {
                 case 1:
-                    StudentServices services = new StudentServices ();
-                    services.sortFullName ( studentByClass );
+                    AdminView adminView = new AdminView ();
+                    adminView.sorfStudentByNameADC ( studentByClass );
                     break;
                 case 2:
                     AppUtils.isRetryAdmin ( InputOption.SHOW );

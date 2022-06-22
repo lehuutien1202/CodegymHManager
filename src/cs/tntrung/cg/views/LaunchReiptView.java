@@ -10,7 +10,7 @@ public class LaunchReiptView {
             System.out.println ( "                   CODEGYM HUẾ                   " );
             System.out.println ( "∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙" );
             System.out.println ( "      ➤  KỶ LUẬT - NĂNG ĐỘNG - CẦU TIẾN  ➤       " );
-            System.out.println ( "❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤" );
+            System.out.println ( "❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤" );
             System.out.println ( "╒═══════════════════ BIÊN LAI ═══════════════════╕" );
             System.out.println ( "│                                                │" );
             System.out.println ( "│              ● 1. Thêm biên lai                │" );
@@ -60,8 +60,8 @@ public class LaunchReiptView {
             System.out.println ( "❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤" );
             System.out.println ( "╒═════════════════ XÓA BIÊN LAI ═══════════════╕" );
             System.out.println ( "│                                              │" );
-            System.out.println ( "│            ● 1. Xóa theo học viên            │" );
-            System.out.println ( "│            ● 2. Xóa theo mã biên lai         │" );
+            System.out.println ( "│      ● 1. Xóa hết biên lai của học viên      │" );
+            System.out.println ( "│      ● 2. Xóa theo mã biên lai               │" );
             System.out.println ( "│                                              │" );
             System.out.println ( "│ ◌ 3. Quay lại | ◌ 4. Đăng xuất  | ◌ 5. Thoát │" );
             System.out.println ( "╘══════════════════════════════════════════════╛" );
@@ -84,20 +84,5 @@ public class LaunchReiptView {
                     break;
             }
         } while (true);
-    }
-
-    public void runUpdate() {
-        System.out.println ( "                  CODEGYM HUẾ                   " );
-        System.out.println ( "∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙" );
-        System.out.println ( "      ➤  KỶ LUẬT - NĂNG ĐỘNG - CẦU TIẾN  ➤      " );
-        System.out.println ( "❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤" );
-        System.out.println ( "╒══════════════ CHỈNH SỬA BIÊN LAI ════════════╕" );
-        System.out.println ( "│                                              │" );
-        System.out.println ( "│            ● 1. Sửa số tiền                  │" );
-        System.out.println ( "│            ● 2. Sửa đợt nộp tiền             │" );
-        System.out.println ( "│            ● 3. Sửa tiền và đợt              │" );
-        System.out.println ( "│                                              │" );
-        System.out.println ( "│ ◌ 4. Quay lại | ◌ 5. Đăng xuất  | ◌ 6. Thoát │" );
-        System.out.println ( "╘══════════════════════════════════════════════╛" );
     }
 }

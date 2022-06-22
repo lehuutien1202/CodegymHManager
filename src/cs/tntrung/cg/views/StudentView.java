@@ -1,5 +1,6 @@
 package cs.tntrung.cg.views;
 
+import cs.tntrung.cg.model.Admin;
 import cs.tntrung.cg.model.Receipt;
 import cs.tntrung.cg.model.Student;
 import cs.tntrung.cg.services.IStudentService;
@@ -33,12 +34,14 @@ public class StudentView {
                 isRetry = AdminView.isRetry ();
             } else {
                 System.out.println ();
-                System.out.println ( "                 ĐĂNG NHẬP THÀNH CÔNG" );
+                Student student = studentService.getByEmail ( email );
+                System.out.println ( "ĐĂNG NHẬP THÀNH CÔNG!" );
+                System.out.printf ("%s %s %s ", "XIN CHÀO!","Học viên",student.getName ());
                 System.out.println ();
                 Student student_1 = studentService.getByEmail ( email );
                 String code = student_1.getCode ();
-                LaunchStudentView student = new LaunchStudentView ();
-                student.launch (code);
+                LaunchStudentView student1 = new LaunchStudentView ();
+                student1.launch (code);
                 isRetry = false;
             }
         } while (isRetry);
@@ -124,24 +127,50 @@ public class StudentView {
     public void tuition(String code){
         System.out.println ();
         List<Receipt> receipts = receiptServices.receiptByCode ( code );
+        ArrayList<Integer> money = new ArrayList<> ();
         ArrayList<Integer> nums = new ArrayList<> ();
         for (Receipt receipt : receipts) {
-            if ( receipt.getStatus ().equals ( "Đã in" ) ){
-                nums.add ( receipt.getCountMonth () );
+            try {
+                if ( receipt.getStatus ().equals ( "Đã in" ) ){
+                    nums.add ( receipt.getCountMonth () );
+                    money.add ( receipt.getMoney () );
+                }
+            }catch (IndexOutOfBoundsException e) {
+                System.out.println ("Học viên viên " + receipt.getName () + " chưa nộp đợt học phí nào!");
+                System.out.println ("Nhập (1) để quay lại || (2) để đăng xuất || (3) để thoát");
+                int option = AppUtils.retryChoose ( 1, 3 );
+                switch (option) {
+                    case 1:
+                        LaunchStudentView launchStudentView = new LaunchStudentView ();
+                        launchStudentView.launch ( code );
+                        break;
+                    case 2:
+                        AppUtils.login ();
+                        break;
+                    case 3:
+                        AppUtils.exit ();
+                        break;
+                }
             }
         }
-        int max = nums.get ( 0 );
+        int max = 0;
         for (int i = 0; i < nums.size (); i++) {
             if ( nums.get ( i ) > max) {
                 max = nums.get ( i );
             }
         }
-        long money = max * 7000000L;
-        System.out.println ("Số đợt đã nộp học phí: " + max + " đợt");
-        System.out.println ("Số tiền đã đóng: " + AppUtils.doubleToVND ( money ));
+        int total = 0;
+        for (int i = 0; i < money.size (); i++) {
+            total += money.get ( i );
+        }
+        System.out.println ("╦ ╦ ╦ ╦ ╦ ╦ ╦ ╦ ╦ ╦ ╦ ╦ ╦ ╦ ╦");
+        System.out.println ();
+        System.out.println ("Đã nộp học phí: " + max + " đợt");
+        System.out.println ("Số tiền đã đóng: " + AppUtils.doubleToVND ( total ));
+        System.out.println ();
+        System.out.println ("╩ ╩ ╩ ╩ ╩ ╩ ╩ ╩ ╩ ╩ ╩ ╩ ╩ ╩ ╩");
         System.out.println ();
         System.out.println ("Nhập (1) để quay lại || (2) để đăng xuất || (3) để thoát");
-//        System.out.print ("Chọn ➤ ");
         int option = AppUtils.retryChoose ( 1, 3 );
         switch (option) {
             case 1:
