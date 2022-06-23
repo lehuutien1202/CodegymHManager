@@ -32,7 +32,7 @@ public class AdminView extends StudentServices {
         System.out.println ( " ✎✎✎ ĐĂNG NHẬP DÀNH CHO QUẢN TRỊ VIÊN ✎✎✎ " );
         System.out.println ();
         do {
-            String email = inputEmail ();
+            String email = inputEmailAdmin(InputOption.SIGNIN);
             String password = inputPassword ( InputOption.SIGNIN );
             if ( adminService.adminLogin ( email, password ) == null ) {
                 System.out.println ( "Tài khoản không tồn tại!" );
@@ -85,7 +85,7 @@ public class AdminView extends StudentServices {
             System.out.println ( "\t┌─────────────────────────────────────┐" );
             System.out.println ( "\t│ Tạo tài khoản mới cho quản trị viên │" );
             System.out.println ( "\t└─────────────────────────────────────┘" );
-            String email = inputEmail ( InputOption.ADD );
+            String email = inputEmailAdmin ( InputOption.ADD );
             String password = inputPassword ( InputOption.CHANGE_PASSWORD );
             String name = inputFullName ( InputOption.ADD );
             String year = inputYear ();
@@ -119,7 +119,7 @@ public class AdminView extends StudentServices {
             AppUtils.isRetryAdmin ( InputOption.ADD );
         } while (true);
     }
-
+// Hiển thị danh sách sinh viên
     public void showStudentList() {
         do {
             ShowStudent show = new ShowStudent ();
@@ -150,7 +150,7 @@ public class AdminView extends StudentServices {
             }
         } while (true);
     }
-
+//  sắp xếp theo tên tăng dần
     public void sorfStudentByNameADC(List<Student> studentList) {
         List<Student> sorfListADC = studentService.sortFullNameADC ( studentList );
         System.out.println ( "╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗" );
@@ -190,7 +190,7 @@ public class AdminView extends StudentServices {
         }
         //        AppUtils.isRetryAdmin ( InputOption.SHOW );
     }
-
+// Sắp xếp theo tên giảm dần
     public void sorfStudentByNameDEC(List<Student> studentList) {
         List<Student> sorfListDEC = studentService.sortFullNameDEC ( studentList );
         System.out.println ( "╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗" );
@@ -704,6 +704,29 @@ public class AdminView extends StudentServices {
                 continue;
             }
             if ( studentService.existsEmail ( email ) ) {
+                System.out.print ( "Email đã tồn tại, hãy nhập lại: " );
+                continue;
+            }
+            break;
+        } while (true);
+        return email;
+    }
+    public String inputEmailAdmin(InputOption option) {
+        switch (option) {
+            case SIGNIN:
+                System.out.print ( "❒ Nhập email: " );
+                break;
+            case ADD:
+                System.out.print ( "❒ Nhập email muốn thêm: " );
+                break;
+        }
+        String email;
+        do {
+            if ( !ValidateUtils.emailValid ( email = AppUtils.retryString ( "Email" ) ) ) {
+                System.out.print ( email + " không đúng định dạng, hãy nhập lại: " );
+                continue;
+            }
+            if ( adminService.existsEmail ( email ) ) {
                 System.out.print ( "Email đã tồn tại, hãy nhập lại: " );
                 continue;
             }

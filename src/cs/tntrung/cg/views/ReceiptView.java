@@ -207,6 +207,7 @@ public class ReceiptView {
                     int newMoney = inputMoney ();
                     afterReceipt.setMoney ( newMoney );
                     String read = inputReadMoney ( newMoney );
+                    afterReceipt.setReadMoney ( read );
                     System.out.println ( "Bằng chữ: " + read + "đồng" );
                     receiptServices.update ( afterReceipt );
                     System.out.println ( "✔ THAY ĐỔI SỐ TIỀN THÀNH CÔNG ✔" );
@@ -225,6 +226,7 @@ public class ReceiptView {
                     int newMoney1 = inputMoney ();
                     afterReceipt.setMoney ( newMoney1 );
                     String read1 = inputReadMoney ( newMoney1 );
+                    afterReceipt.setReadMoney ( read1 );
                     System.out.println ( "Bằng chữ: " + read1 + "đồng" );
                     System.out.println ( "Đợt nộp tiền hiện tại: " + receipt1.getCountMonth () );
                     int newCount1 = inputCountMonth ();
