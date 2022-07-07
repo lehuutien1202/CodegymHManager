@@ -720,17 +720,40 @@ public class AdminView extends StudentServices {
                 System.out.print ( "❒ Nhập email muốn thêm: " );
                 break;
         }
-        String email;
+        String email = null;
         do {
-            if ( !ValidateUtils.emailValid ( email = AppUtils.retryString ( "Email" ) ) ) {
-                System.out.print ( email + " không đúng định dạng, hãy nhập lại: " );
-                continue;
-            }
-            if ( adminService.existsEmail ( email ) ) {
-                System.out.print ( "Email đã tồn tại, hãy nhập lại: " );
-                continue;
+            switch (option) {
+                case SIGNIN:
+                    if ( !ValidateUtils.emailValid ( email = AppUtils.retryString ( "Email" ) ) ) {
+                        System.out.print ( email + " không đúng định dạng, hãy nhập lại: " );
+                        continue;
+                    }
+                    if ( !adminService.existsEmail ( email ) ) {
+                        System.out.print ( "Email không tồn tại, hãy nhập lại: " );
+                        continue;
+                    }
+                    break;
+                case ADD:
+                    if ( !ValidateUtils.emailValid ( email = AppUtils.retryString ( "Email" ) ) ) {
+                        System.out.print ( email + " không đúng định dạng, hãy nhập lại: " );
+                        continue;
+                    }
+                    if ( adminService.existsEmail ( email ) ) {
+                        System.out.print ( "Email đã tồn tại, hãy nhập lại: " );
+                        continue;
+                    }
+                    break;
             }
             break;
+//            if ( !ValidateUtils.emailValid ( email = AppUtils.retryString ( "Email" ) ) ) {
+//                System.out.print ( email + " không đúng định dạng, hãy nhập lại: " );
+//                continue;
+//            }
+//            if ( adminService.existsEmail ( email ) ) {
+//                System.out.print ( "Email đã tồn tại, hãy nhập lại: " );
+//                continue;
+//            }
+//            break;
         } while (true);
         return email;
     }
@@ -846,7 +869,7 @@ public class AdminView extends StudentServices {
         String address;
         do {
             if ( !ValidateUtils.addressValid ( address = AppUtils.retryString ( "Địa chỉ" ) ) ) {
-                System.out.print ( address + " không đúng, hãy nhập lại (gồm chữ hoặc số hoặc dấu '-'): " );
+                System.out.print ( address + " không đúng, hãy nhập lại (gồm chữ hoặc số hoặc dấu '.'): " );
                 continue;
             }
             break;

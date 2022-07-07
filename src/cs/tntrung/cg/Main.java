@@ -11,8 +11,6 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        ReceiptServices receiptServices = new ReceiptServices ();
-        Scanner scanner = new Scanner ( System.in );
         Login.login ();
     }
 }

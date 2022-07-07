@@ -11,7 +11,7 @@ public class ValidateUtils {
     public static final String EMAIL = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}$";
     public static final String PASSWORD = "^(([A-Z])[a-zA-Z0-9.*@_-]{8,15})$";
 
-    public static final String WORDANDNUM = "^(([A-Z]|[a-z]|[0-9])+[-]?[ ]?)+$";
+    public static final String WORDANDNUM = "^(([A-Z]|[a-z]|[0-9])+[.]?[ ]?)+$";
 
     public static final String CITIZEN_NUM = "^((0[1-9][0-9]{10})|(0[1-9][0-9]{7})|(1[0-9]{8}))$";
     public static final String YEAR = "^(19[6-9][0-9])|(200[0-3])$";
